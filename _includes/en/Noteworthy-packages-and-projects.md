@@ -4,12 +4,13 @@ Julia\[Topic\].
 |                           |                                                  |
 | ------------------------- | ------------------------------------------------ |
 | Statistics                | JuliaStats                                       |
-| Scientific Machine Learning | SciML (DifferentialEquations.jl)      |
+| Scientific Machine Learning | SciML (DifferentialEquations)      |
 | Automatic differentiation | JuliaDiff                                        |
 | Numerical optimization    | JuliaOpt                                         |
-| Plotting                  | JuliaPlots                                       |
+| Plotting                  | JuliaPlots, (and Makie)                       |
 | Network (Graph) Analysis  | JuliaGraphs                                      |
 | Web                       | JuliaWeb                                         |
 | Geo-Spatial               | JuliaGeo                                         |
 | Machine Learning          | JuliaML                                          |
-| Super-used Packages       | `DataFrames    # linear/logistic regression`<br>`Distributions # Statistical distributions`<br>`Flux          # Machine learning`<br>`Gadfly        # ggplot2-likeplotting`<br>`LightGraphs   # Network analysis`<br>`TextAnalysis  # NLP` |
+| Super-used Packages       | `DataFrames`, `Distributions`, `DifferentialEquations`, `JuMP` (optimization), `Flux` (Machine learning), `LightGraphs`, `Plots`, `Makie`|   
+| Utility packages | `Revise`, `UnPack`, `StaticArrays`, `PkgTemplates`, `BenchmarkTools` |

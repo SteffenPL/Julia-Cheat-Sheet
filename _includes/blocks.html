@@ -1,21 +1,24 @@
 <div id="contents">
   <ul>
     <li>
+      {% assign counter = 0 %}
       {% for block in site.data.blocks %}
       <div class="box">
         <div class="title">
 
           {% if page.lang == "en" %}
-          <h1>{{ block.title }}</h1>
+          <h1>{{ counter }}. {{ block.title }}</h1>
           {% elsif block[page.lang] %}
-          <h1>{{ block[page.lang] }}</h1>
+          <h1>{{ counter }}. {{ block[page.lang] }}</h1>
           {% else %}
-          <h1>{{ block.title }} <small>({{ site.t[page.lang].translate }})</small> </h1>
+          <h1>{{ counter }}. {{ block.title }} <small>({{ site.t[page.lang].translate }})</small> </h1>
           {% endif %}
         </div>
         {% capture this_block %}{% include {{page.lang}}/{{ block.file }} %}{% endcapture %}
         {{ this_block | markdownify }}
       </div>
+      
+        {% assign counter = counter | plus: 1 %}
       {% endfor %}
     </li>
   </ul>

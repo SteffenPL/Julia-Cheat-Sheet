@@ -8,6 +8,7 @@ are some Standard Libraries and popular functions.
 | `Statistics`    | `mean`, `std`, `cor`, `median`, `quantile`   |
 | `LinearAlgebra` | `I`, `eigvals`, `eigvecs`, `det`, `cholesky` |
 | `SparseArrays`  | `sparse`, `SparseVector`, `SparseMatrixCSC`  |
+| `Threads`       | `@threads`                                   |
 | `Distributed`   | `@distributed`, `pmap`, `addprocs`           |
 | `Dates`         | `DateTime`, `Date`                           |
 

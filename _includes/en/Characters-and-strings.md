@@ -7,6 +7,7 @@
 | Any UTF character                              | `chr = '\uXXXX'     # 4-digit HEX`<br>`chr = '\UXXXXXXXX' # 8-digit HEX` |
 | Loop through characters                        | `for c in str`<br>`    println(c)`<br>`end` |
 | Concatenation                                  | `str = "Learn" * " " * "Julia"`             |
+| Concatenation (with other types)               | `string('X', " = ", 42) == "X = 42" `          |
 | String interpolation                           | `a = b = 2`<br>`println("a * b = $(a*b)")`  |
 | First matching character or regular expression | `findfirst(isequal('i'), "Julia") == 4`     |
 | Replace substring or regular expression        | `replace("Julia", "a" => "us") == "Julius"` |

@@ -1,35 +1,78 @@
 All arguments to functions are passed by reference.
 
-Functions with `!` appended change at least one argument, typically the first:
+**Convention**: Functions with `!` at the end of the name change at least one argument, typically the first, e.g.
 `sort!(arr)`.
 
-Required arguments are separated with a comma and use the positional notation.
+There are three kinds of arguments:
 
-Optional arguments need a default value in the signature, defined with `=`.
-
-Keyword arguments use the named notation and are listed in the function's
-signature after the semicolon:
+ - **Required arguments** are separated with a comma and use the positional notation.
+ - **Optional arguments** come after required arguments and have a default value, defined with `=`.
+ - **Keyword arguments** use the named notation and are listed in the function's
+signature after the semicolon.
 
 ````
-function func(req1, req2; key1=dflt1, key2=dflt2)
+function func(req1, req2, opt1 = 1; key1="x", key2=0)
     # do stuff
 end
 ````
 
 The semicolon is *not* required in the call to a function that accepts keyword arguments.
 
-The `return` statement is optional but highly recommended.
+The `return` statement is optional but highly recommended. *(Without return, the function returns the value of the last line.)*
 
-Multiple data structures can be returned as a tuple in a single `return` statement.
+Multiple variables can be returned as a tuple in a single `return` statement.
 
-Command line arguments `julia script.jl arg1 arg2...` can be processed from global
-constant `ARGS`:
 
+Functions can have explicit input and return types
 ```
-for arg in ARGS
-    println(arg)
+# take any Number subtype and return it as a String
+function stringifynumber(num::Number)::String
+    return "$num"
 end
 ```
+
+*Multiple dispatch:* Functions can have multiple definitions for different input types. 
+At each call, the most spezialized definition will be used, e.g.
+```
+intbyfloat(x,y) = NaN
+intbyfloat(x::Int64,y::Float64) = x/y
+intbyfloat(x::Float64,y::Int64) = y/x
+
+intbyfloat(1,2.0) == 1/2.0  # calls second definition
+intbyfloat(3.0,2) == 2/3.0  # calls third definition
+isnan( intbyfloat(3.0, 3.0) ) # calls first definition
+```
+
+Functions can be
+[vectorized](https://docs.julialang.org/en/v1/manual/functions/#man-vectorized-1)
+by using the Dot Syntax
+
+```
+# here we broadcast the addition and the call of f(x)
+A = rand(3, 4)
+B = A .- randn(3,4)  # broadcast '-'
+
+f(x) = 2x-1
+C = f.(B)            # broadcast 'f'
+```
+
+Alternative ways to define functions are one line functions and anonymous functions.
+
+One line functions use `=` instead of return
+```
+f(x,y=1;z=2) = x+y*z
+```
+
+Anonymous functions do not have a function name and use `->` instead of return
+```
+(x,y=1;z=2) -> x+y*z 
+```
+They can be used for example in collection functions or list comprehension, e.g.
+```
+sort([1,2,3], by = (x) -> 1/sin(x)) 
+map((x,y) -> x/y^2, 1:10, 2:11)
+```
+
 
 Anonymous functions can best be used in collection functions or list comprehensions:
 `x -> x^2`.
@@ -57,33 +100,9 @@ function outerfunction()
 end
 ```
 
-Functions can have explicit return types
 
-```
-# take any Number subtype and return it as a String
-function stringifynumber(num::T)::String where T <: Number
-    return "$num"
-end
-```
+Parametric functions 
 
-Functions can be
-[vectorized](https://docs.julialang.org/en/v1/manual/functions/#man-vectorized-1)
-by using the Dot Syntax
-
-```
-# here we broadcast the subtraction of each mean value
-# by using the dot operator
-julia> using Statistics
-julia> A = rand(3, 4);
-julia> B = A .- mean(A, dims=1)
-3×4 Array{Float64,2}:
-  0.0387438     0.112224  -0.0541478   0.455245
-  0.000773337   0.250006   0.0140011  -0.289532
- -0.0395171    -0.36223    0.0401467  -0.165713
-julia> mean(B, dims=1)
-1×4 Array{Float64,2}:
- -7.40149e-17  7.40149e-17  1.85037e-17  3.70074e-17
-```
 
 Julia generates <a class="tooltip" href="#">specialized versions<span> Multiple dispatch a type of
 polymorphism that dynamically determines which version of a function to
@@ -95,12 +114,9 @@ of functions based on data types. When a function is called with the
 same argument types again, Julia can look up the native machine code and
 skip the compilation process.
 
-Since **Julia 0.5** the existence of potential
-ambiguities is still acceptable, but actually calling an ambiguous
-method is an **immediate error**.
+The existence of potential ambiguities is acceptable, 
+but actually calling an ambiguous method is an **immediate error**.
 
 Stack overflow is possible when recursive functions nest many levels
-deep. [Trampolining](https://web.archive.org/web/20140420011956/http://blog.zachallaun.com/post/jumping-julia) can
-be used to do tail-call optimization, as Julia does not do that
-automatically [yet](https://github.com/JuliaLang/julia/issues/4964).
-Alternatively, you can rewrite the tail recursion as an iteration.
+deep.
+```

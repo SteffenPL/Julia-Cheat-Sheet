@@ -298,7 +298,14 @@ code {
     display: inline-block;
     white-space: pre-wrap;
     font-family: 'Ubuntu Mono', monospace;
-    color: darkgreen;
+    margin: 0.1em;
+    /* color: darkgreen; */
+}
+
+.highlight code {
+    border-radius: 1em;
+    padding: 0.5em;
+    background-color: #ffffff;
 }
 
 pre code {

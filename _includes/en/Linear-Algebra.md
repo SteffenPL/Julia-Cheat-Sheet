@@ -19,6 +19,8 @@ For most linear algebra tools, use `using LinearAlgebra`.
 | Matrix inverse                 | `inv(M)`                                    |
 | Solve `M*x == v`               | `M\v` is <a class="tooltip" href="#">better <span> Numerically more stable and typically also faster. </span></a> than `inv(M)*v` |
 | Moore-Penrose pseudo-inverse   | `pinv(M)`                                   |
+| Automatic factorization                  | `Afact = factorize(A)` use `Afact\v` to solve|
+| LU factorization               | `Alu = lu(A)`   use `Afact\v` to solve                             |
 
 Julia has built-in support for [matrix
 decompositions](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/).

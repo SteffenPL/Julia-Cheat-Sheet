@@ -1,10 +1,14 @@
 |                                   |                                             |
 | --------------------------------- | ------------------------------------------- |
-| Declaration                       | `arr = Float64[]`                           |
+| Declaration                       | `arr = Float64[]` <br> `arr = []  # element type is Any`      |
 | Pre-allocation                    | `sizehint!(arr, 10^4)`                      |
-| Access and assignment             | `arr = Any[1,2]`<br>`arr[1] = "Some text"`  |
-| Comparison | `a = [1:10;]`<br>`b = a      # b points to a`<br>`a[1] = -99`<br>`a == b     # true` |
-| Copy elements (not address)       | `b = copy(a)`<br>`b = deepcopy(a)`          |
+| Access and assignment             | `arr = [1,2]`<br>`x = arr[1] + arr[end]` <br> `arr[1] = 10`  |
+| Array comprehension               | `arr = [i^2 for i in 1:10]` |
+| Array comprehension (2D)              | `[i+j for i in 1:3, j in 1:3]` |
+| Assigment | `a = [1,2,3]`<br>`b = a      # b and a bound to same array`<br>`a[1] = -99`<br>`a == b     # true` |
+| Copy elements (not address)       | `b = copy(a) # shallow copy`<br>`b = deepcopy(a)`          |
+| Length                            | `length(arr) # int`            | 
+| Size                              | `size(arr)   # tuple` |
 | Select subarray from m to n       | `arr[m:n]`                                  |
 | n-element array with 0.0s         | `zeros(n)`                                  |
 | n-element array with 1.0s         | `ones(n)`                                   |
@@ -19,7 +23,9 @@
 | Remove element at index idx       | `deleteat!(arr, idx)`                       |
 | Sort                              | `sort!(arr)`                                |
 | Append a with b                   | `append!(a,b)`                              |
-| Check whether val is element      | `in(val, arr) or val in arr`                |
+| Check whether val is element      | `val in arr`                |
 | Scalar product                    | `dot(a, b) == sum(a .* b)`                  |
 | Change dimensions (if possible)   | `reshape(1:6, 3, 2)' == [1 2 3; 4 5 6]`     |
 | To string (with delimiter del between elements) | `join(arr, del)`              |
+| Iterate        | `arr = rand(100)`<br>`for x in arr`<br>`  # do something`<br> `end` |
+
